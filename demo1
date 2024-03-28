@@ -1,0 +1,23 @@
+from web3 import Web3
+
+# 连接到以太坊节点
+web3 = Web3(Web3.HTTPProvider('https://mainnet.infura.io/v3/your_infura_project_id'))
+
+# 要查询余额的以太坊地址
+address_to_check = '0xYourEthereumAddress'
+
+# 查询余额函数
+def get_eth_balance():
+    try:
+        # 获取以太坊地址的余额（单位为wei）
+        balance_wei = web3.eth.get_balance(address_to_check)
+
+        # 将余额从wei转换为以太（ETH）
+        balance_eth = web3.fromWei(balance_wei, 'ether')
+
+        print('Balance:', balance_eth, 'ETH')
+    except Exception as e:
+        print('Error occurred:', e)
+
+# 调用查询余额函数
+get_eth_balance()
