@@ -1,0 +1,33 @@
+import org.tron.tronlink.walletclient.GrpcClient;
+import org.tron.tronlink.walletclient.WalletClient;
+import org.tron.tronlink.walletclient.WalletResponse;
+import org.tron.tronlink.walletclient.GrpcAPI.TransactionExtention;
+import org.tron.tronlink.walletclient.GrpcAPI.Return;
+
+public class TronTransfer {
+
+    public static void main(String[] args) {
+        // 初始化波场客户端
+        GrpcClient client = WalletClient.getWallet("https://api.trongrid.io"); // 使用波场测试网
+
+        // 发送方地址和私钥
+        String senderAddress = "sender_address";
+        String privateKey = "sender_private_key";
+
+        // 接收方地址
+        String receiverAddress = "receiver_address";
+
+        // 转账金额（以 TRX 为单位）
+        long amount = 1000000; // 1 TRX = 1,000,000 SUN
+
+        // 执行转账
+        TransactionExtention txExt = client.transfer(senderAddress, receiverAddress, amount);
+
+        Return ret = txExt.getRet(0);
+        if (ret.getResult()) {
+            System.out.println("Transaction Hash: " + ret.getContractRet());
+        } else {
+            System.out.println("Transaction Failed: " + ret.getMessage().toStringUtf8());
+        }
+    }
+}
