@@ -1,0 +1,11 @@
+# 登录到 NEAR
+near login
+
+# 部署合约
+near deploy --accountId your_account_id --wasmFile out/contract.wasm
+
+# 设置值
+near call your_account_id set_value '{"new_value": 42}' --accountId your_account_id
+
+# 获取值
+near view your_account_id get_value
